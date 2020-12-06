@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90082630257BBE640007E598 /* Order+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9008262E257BBE640007E598 /* Order+CoreDataClass.swift */; };
+		90082631257BBE640007E598 /* Order+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9008262F257BBE640007E598 /* Order+CoreDataProperties.swift */; };
+		90082635257BD4040007E598 /* OrderSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90082634257BD4040007E598 /* OrderSheet.swift */; };
 		909E0349257BB9EF0069EE8A /* PizzaRestaurantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909E0348257BB9EF0069EE8A /* PizzaRestaurantApp.swift */; };
 		909E034B257BB9EF0069EE8A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909E034A257BB9EF0069EE8A /* ContentView.swift */; };
 		909E034D257BB9F90069EE8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 909E034C257BB9F90069EE8A /* Assets.xcassets */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9008262E257BBE640007E598 /* Order+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Order+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9008262F257BBE640007E598 /* Order+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Order+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		90082634257BD4040007E598 /* OrderSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSheet.swift; sourceTree = "<group>"; };
 		909E0345257BB9EF0069EE8A /* PizzaRestaurant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PizzaRestaurant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		909E0348257BB9EF0069EE8A /* PizzaRestaurantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaRestaurantApp.swift; sourceTree = "<group>"; };
 		909E034A257BB9EF0069EE8A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -40,6 +46,8 @@
 		909E033C257BB9EE0069EE8A = {
 			isa = PBXGroup;
 			children = (
+				9008262E257BBE640007E598 /* Order+CoreDataClass.swift */,
+				9008262F257BBE640007E598 /* Order+CoreDataProperties.swift */,
 				909E0347257BB9EF0069EE8A /* PizzaRestaurant */,
 				909E0346257BB9EF0069EE8A /* Products */,
 			);
@@ -63,6 +71,7 @@
 				909E0356257BB9F90069EE8A /* Info.plist */,
 				909E0353257BB9F90069EE8A /* PizzaRestaurant.xcdatamodeld */,
 				909E034E257BB9F90069EE8A /* Preview Content */,
+				90082634257BD4040007E598 /* OrderSheet.swift */,
 			);
 			path = PizzaRestaurant;
 			sourceTree = "<group>";
@@ -144,9 +153,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90082631257BBE640007E598 /* Order+CoreDataProperties.swift in Sources */,
 				909E0352257BB9F90069EE8A /* Persistence.swift in Sources */,
 				909E034B257BB9EF0069EE8A /* ContentView.swift in Sources */,
 				909E0349257BB9EF0069EE8A /* PizzaRestaurantApp.swift in Sources */,
+				90082630257BBE640007E598 /* Order+CoreDataClass.swift in Sources */,
+				90082635257BD4040007E598 /* OrderSheet.swift in Sources */,
 				909E0355257BB9F90069EE8A /* PizzaRestaurant.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

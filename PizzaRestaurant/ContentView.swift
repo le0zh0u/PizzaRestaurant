@@ -1,7 +1,7 @@
 //
 //  ContentView.swift
 //  PizzaRestaurant
-//
+//  scratchpad
 //  Created by 周椿杰 on 2020/12/5.
 //
 
@@ -9,69 +9,68 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    
     @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
+    
+    @FetchRequest(entity: Order.entity(), sortDescriptors: [], predicate: NSPredicate(format: "status != %@", Status.completed.rawValue))
+    var orders: FetchedResults<Order>
+    
+    @State var showOrderSheet = false
+    
     var body: some View {
-        List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+        NavigationView{
+            List{
+                ForEach(orders){ order in
+                    HStack {
+                        VStack(alignment: .leading){
+                            Text("\(order.pizzaType) - \(order.numberOfSlices) slices").font(.headline)
+                            Text("Table \(order.tableNumber)")
+                                .font(.subheadline)
+                        }
+                        Spacer()
+                        Button(action: {
+                            updateOrder(order: order)
+                        }) {
+                            Text(order.orderStatus == .pending ? "Prepare" : "Complete").foregroundColor(.blue)
+                        }
+                        
+                    }
+                    .frame(height: 50)
+                }
+                .onDelete(perform: { indexSet in
+                    for index in indexSet {
+                        viewContext.delete(orders[index])
+                    }
+                    do {
+                        try viewContext.save()
+                    }catch {
+                        print(error.localizedDescription)
+                    }
+                })
             }
-            .onDelete(perform: deleteItems)
+            .listStyle(PlainListStyle())
+            .navigationTitle("My Orders")
+            .navigationBarItems(trailing: Button(action: {
+                showOrderSheet = true
+            }, label: {
+                Image(systemName: "plus.circle").imageScale(.large)
+            }))
+            .sheet(isPresented: $showOrderSheet, content: {
+                OrderSheet()
+            })
         }
-        .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
-
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
-            }
-        }
+        
+        
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+    
+    func updateOrder(order: Order){
+        let newStatus = order.orderStatus == .pending ? Status.preparing : .completed
+        viewContext.performAndWait {
+            order.orderStatus = newStatus
+            try? viewContext.save()
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
